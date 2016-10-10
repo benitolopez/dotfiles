@@ -25,6 +25,17 @@ set ignorecase
 set noerrorbells visualbell t_vb=
 " Better wrap
 set breakindent
+" Show mode
+set showmode
+
+"----- Powerline -----"
+
+" Always show the status bar
+set laststatus=2
+" Use powerline symbols
+let g:airline_powerline_fonts = 1
+" Use powerline theme
+let g:airline_theme="powerlineish"
 
 "----- Split Management -----"
 set splitbelow
@@ -39,8 +50,8 @@ map <C-L> <C-W><C-L>
 
 " Make it easy to edit the Vimrc file
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
-" Add simple highlight removal
-nmap <Leader><space> :nohlsearch<cr>
+" Make it easy to edit the gvimrc file
+nmap <Leader>eg :e ~/.gvimrc<cr>
 " Make it easy to edit the snippets file
 nmap <Leader>es :e ~/.vim/snippets/
 " Make it easy to edit the Vim plugins file
@@ -77,6 +88,14 @@ nmap <a-1> :NERDTreeToggle<cr>
 "----- CTags -----"
 nmap <Leader>f :tag<space>
 
+"----- Ack -----"
+cnoreabbrev ag Ack
+"let g:ackpreview = 0
+
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
 "----- Greplace -----"
 set grepprg=ag
 let g:grep_cmd_opts = '--line-number --noheading'
@@ -93,3 +112,4 @@ augroup END
 " - Press Ctrl+^ to go back to the previous location (buffer).
 " - Press 'gg' to go to the top, Shift+g to the bottom.
 " - Select text in visual mode then press Shift+s to type a surrounding tag
+" - Double Esc to clear the highlight after search

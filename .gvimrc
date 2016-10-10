@@ -1,5 +1,5 @@
-set linespace=15
-set guifont=Consolas\ 14
+set linespace=10
+set guifont=Hack\ 13
 set guioptions-=l
 set guioptions-=L
 set guioptions-=r
