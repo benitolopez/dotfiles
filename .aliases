@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Easier navigation
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Shortcuts
+alias www="cd ~/Projects/Sites"
+alias g="git"
+
+# List files
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
