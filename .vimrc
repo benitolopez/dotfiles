@@ -28,15 +28,6 @@ set breakindent
 " Show mode
 set showmode
 
-"----- Powerline -----"
-
-" Always show the status bar
-set laststatus=2
-" Use powerline symbols
-let g:airline_powerline_fonts = 1
-" Use powerline theme
-let g:airline_theme="powerlineish"
-
 "----- Split Management -----"
 set splitbelow
 set splitright
@@ -100,10 +91,37 @@ endif
 set grepprg=ag
 let g:grep_cmd_opts = '--line-number --noheading'
 
+"----- Airline -----"
+
+" Show open buffers when there's only one tab
+let g:airline#extensions#tabline#enabled = 1
+" Always show the status bar
+set laststatus=2
+" Use powerline symbols
+let g:airline_powerline_fonts = 1
+" Use powerline theme
+let g:airline_theme="powerlineish"
+" Hide default mode (already shown in Powerline)
+set noshowmode
+" Disable mix-indent detection
+let g:airline#extensions#whitespace#enabled = 0
+
+" Reload Airline when source .vimrc
+function! RefreshUI()
+  if exists(':AirlineRefresh')
+    AirlineRefresh
+  else
+    " Clear & redraw the screen, then redraw all statuslines.
+    redraw!
+    redrawstatus!
+  endif
+endfunction
+
 " Automatically source the Vimrc file on save
 augroup autosorcing
 	autocmd!
-	autocmd BufWritePost .vimrc source %
+	autocmd BufWritePost $MYVIMRC source $MYVIMRC | :call RefreshUI()
+	autocmd BufWritePost $MYVIMRC :call RefreshUI()
 augroup END
 
 " Notes and Tips
@@ -113,3 +131,8 @@ augroup END
 " - Press 'gg' to go to the top, Shift+g to the bottom.
 " - Select text in visual mode then press Shift+s to type a surrounding tag
 " - Double Esc to clear the highlight after search
+" - Type ':ls' to list all opened buffers 
+" - Shift+j joins the current line with the bottom line
+" - Ctrl+o goes back to the previous edit point, and Ctrl+i goes forward
+" - Press 'yiw' to yank a word
+" - Press 'o' to insert a new line below, Ctrl+o for a new line above
