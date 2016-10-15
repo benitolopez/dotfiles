@@ -7,7 +7,7 @@ so ~/.vim/plugins.vim
 " Use the Solarized Dark theme
 syntax enable
 set background=dark
-colorscheme atom-dark
+colorscheme hybrid
 
 " Allow backspace in insert mode
 set backspace=indent,eol,start
@@ -25,8 +25,13 @@ set ignorecase
 set noerrorbells visualbell t_vb=
 " Better wrap
 set breakindent
+set breakindentopt=shift:4
 " Show mode
 set showmode
+" Save buffer on switch
+set autowrite
+" Tab size
+set tabstop=4
 
 "----- Split Management -----"
 set splitbelow
@@ -56,14 +61,20 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
+" Select all shortcut
+map <C-a> <esc>ggVG<CR>
+" Fast saves
+nmap <leader>w :w!<cr>
+" Quickly go forward or backward to buffer
+nmap :bp :BufSurfBack<cr>
+nmap :bn :BufSurfForward<cr>
+
 "----- CtrlP -----"
 
 " Ignore files and folders
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " Search position
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
-" Use Alt to invoke CtrlP
-nmap <a-p> :CtrlP<cr>
 " Find in buffer
 nmap <a-R> :CtrlPBufTag<cr>
 " Find in MRU
@@ -130,9 +141,12 @@ augroup END
 " - Press Ctrl+^ to go back to the previous location (buffer).
 " - Press 'gg' to go to the top, Shift+g to the bottom.
 " - Select text in visual mode then press Shift+s to type a surrounding tag
+" - Example surrounding tag: 'cs a b' replaces the surrounding a with b
+" - Example surrounding tag 2: 'ds a' deletes the surrounding a 
 " - Double Esc to clear the highlight after search
 " - Type ':ls' to list all opened buffers 
 " - Shift+j joins the current line with the bottom line
 " - Ctrl+o goes back to the previous edit point, and Ctrl+i goes forward
 " - Press 'yiw' to yank a word
 " - Press 'o' to insert a new line below, Ctrl+o for a new line above
+" - Press ,c<space> to toggle a comment
