@@ -23,6 +23,10 @@ Plugin 'ervandew/supertab'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/Align'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()      
 filetype plugin indent on

@@ -25,13 +25,19 @@ set ignorecase
 set noerrorbells visualbell t_vb=
 " Better wrap
 set breakindent
-set breakindentopt=shift:4
+"set breakindentopt=shift:4
 " Show mode
 set showmode
 " Save buffer on switch
 set autowrite
 " Tab size
 set tabstop=4
+set shiftwidth=4
+
+"----- Easier Buffer Switching -----"
+set wildchar=<Tab> wildmenu wildmode=full
+set wildcharm=<C-Z>
+nnoremap <F10> :b <C-Z>
 
 "----- Split Management -----"
 set splitbelow
@@ -68,6 +74,12 @@ nmap <leader>w :w!<cr>
 " Quickly go forward or backward to buffer
 nmap :bp :BufSurfBack<cr>
 nmap :bn :BufSurfForward<cr>
+" Down to the real next line
+nnoremap j gj
+nnoremap k gk
+
+"----- EditorConfig -----"
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 "----- CtrlP -----"
 
@@ -102,6 +114,14 @@ endif
 set grepprg=ag
 let g:grep_cmd_opts = '--line-number --noheading'
 
+"----- Syntastic -----"
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_php_checkers = ['php']
+
 "----- Airline -----"
 
 " Show open buffers when there's only one tab
@@ -116,6 +136,10 @@ let g:airline_theme="powerlineish"
 set noshowmode
 " Disable mix-indent detection
 let g:airline#extensions#whitespace#enabled = 0
+
+"----- File Types -----"
+" Change scss files to css
+au BufRead,BufNewFile *.scss set filetype=scss.css
 
 " Reload Airline when source .vimrc
 function! RefreshUI()
