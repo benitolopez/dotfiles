@@ -5,6 +5,56 @@ case "$TERM" in
     xterm|xterm-color|*-256color) color_prompt=yes;;
 esac
 
+prompt_git() {
+    local s='';
+    local branchName='';
+
+    # Check if the current directory is in a Git repository.
+    if [ $(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}") == '0' ]; then
+
+        # check if the current directory is in .git before running git checks
+        if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
+
+            # Ensure the index is up to date.
+            git update-index --really-refresh -q &>/dev/null;
+
+            # Check for uncommitted changes in the index.
+            if ! $(git diff --quiet --ignore-submodules --cached); then
+                s+='+';
+            fi;
+
+            # Check for unstaged changes.
+            if ! $(git diff-files --quiet --ignore-submodules --); then
+                s+='!';
+            fi;
+
+            # Check for untracked files.
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                s+='?';
+            fi;
+
+            # Check for stashed files.
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                s+='$';
+            fi;
+
+        fi;
+
+        # Get the short symbolic ref.
+        # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+        # Otherwise, just give up.
+        branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+            git rev-parse --short HEAD 2> /dev/null || \
+            echo '(unknown)')";
+
+        [ -n "${s}" ] && s=" [${s}]";
+
+        echo -e "${1}${branchName}${2}${s}";
+    else
+        return;
+    fi;
+}
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -23,9 +73,13 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     if [[ ${EUID} == 0 ]] ; then
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\h\[\033[01;31m\] \W'
+        PS1+="\$(prompt_git \"\[\e[1;37m\] on \[\e[1;34m\]\" \"\[\e[1;31m\]\")"; # Git repository details
+        PS1+='\[\033[01;31m\] \$\[\033[00m\] '
     else
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w \$\[\033[00m\] '
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;31m\]\w'
+        PS1+="\$(prompt_git \"\[\e[1;37m\] on \[\e[1;34m\]\" \"\[\e[1;35m\]\")"; # Git repository details
+        PS1+='\[\033[01;31m\] \$\[\033[00m\] '
     fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h \w \$ '
