@@ -1,13 +1,17 @@
-# jQuery
-snippet jq
-	jQuery${1:()}
-
 # jQuery Ready
-snippet jqr
-	jQuery(function() {
-		${1:codes}
+snippet jq
+	jQuery(function($) {
+		${1:}
+	});
+
+# jQuery Document Ready
+snippet jdr
+	$(document).ready(function() {
+		${1:}
 	});
 
 # Function
 snippet fn
-	function(${1:param}) { ${2:codes}}
+	function(${1:param}) { ${2:}}
+
+

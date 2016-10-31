@@ -15,9 +15,6 @@ Plugin 'StanAngeloff/php.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'ervandew/supertab'
 Plugin 'pbrisbin/vim-mkdir'
@@ -27,6 +24,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'SirVer/ultisnips'
 
 call vundle#end()      
 filetype plugin indent on
