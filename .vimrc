@@ -4,7 +4,7 @@ set nocompatible
 " Vim plugins
 so ~/.vim/plugins.vim
 
-" Use the Solarized Dark theme
+" Use the Hybrid theme
 syntax enable
 set background=dark
 colorscheme hybrid
@@ -33,6 +33,9 @@ set autowrite
 " Tab size
 set tabstop=4
 set shiftwidth=4
+" Swap files out of the project root
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
 
 "----- Easier Buffer Switching -----"
 set wildchar=<Tab> wildmenu wildmode=full
@@ -172,5 +175,7 @@ augroup END
 " - Shift+j joins the current line with the bottom line
 " - Ctrl+o goes back to the previous edit point, and Ctrl+i goes forward
 " - Press 'yiw' to yank a word
-" - Press 'o' to insert a new line below, Ctrl+o for a new line above
+" - Press 'daw' to delete a word under the cursor, 'caw' to delete the word
+"   and put in insert mode
+" - Press 'o' to insert a new line below, Shift+o for a new line above
 " - Press ,c<space> to toggle a comment
