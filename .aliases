@@ -12,3 +12,6 @@ alias g="git"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# prm
+alias p=". code/prm/prm.sh"

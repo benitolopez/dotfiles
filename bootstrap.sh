@@ -4,6 +4,9 @@
 git clone https://github.com/rupa/z.git ~/code/z
 chmod +x ~/code/z/z.sh
 
+# https://github.com/eivind88/prm
+git clone https://github.com/eivind88/prm.git ~/code/prm
+
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
