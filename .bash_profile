@@ -42,3 +42,6 @@ fi
 
 # z
 source ~/code/z/z.sh
+
+# p
+source ~/code/p/p.sh
